@@ -6,12 +6,16 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:37:54 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/01/28 11:52:19 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/01/31 16:57:25 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# ifndef BUFF_SIZE
+#  define BUFF_SIZE 10
+# endif
 
 # include <unistd.h>
 # include <stdlib.h>
