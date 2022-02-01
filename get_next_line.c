@@ -6,43 +6,58 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 18:43:59 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/01/31 18:23:39 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:44:47 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*ft_search(char *temp, int fd)
+static char	*ft_search_parts(char *tmp, int fd)
 {
-	char	*buf;
-	int		*ret;
+	char	*buffer;
+	int		*res;
 
-	ret = 1;
-	temp = BUFFER_SIZE + 1;
+	res = 1;
+	tmp = BUFFER_SIZE + 1;
 	if (BUFFER_SIZE <= 0)
 		return (-1);
-	while (ret != 0 && !ft_strchr(temp, '\n'))
+	while (res != 0 && !ft_strchr(tmp, '\n'))
 	{
-		read(fd, buf, BUFFER_SIZE);
-		if (ret == -1)
+		read(fd, buffer, BUFFER_SIZE);
+		if (res == -1)
 		{
-			free (buf)
+			free (buffer)
 			return (NULL);
 		}
 	}
-	buf[ret] = '\0';
-	temp = ft_strjoin(temp, buf);
-	return (buf);
+	buffer[res] = '\0';
+	tmp = ft_strjoin(tmp, buffer);
+	return (buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	int			ret;
+	int			res;
 	char		buf[BUFFER_SIZE + 1];
 	static char	*line;
-	char		*temp;
+	char		*tmp;
 
-	ret = BUFFER_SIZE;
+	res = BUFFER_SIZE;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (-1);
+	
+}
+
+int	main(void)
+{
+	char	*res;
+	int		fd;
+
+	fd = open("christina_wow.txt", O_RDONLY);
+	res = ft_get_next_line(fd);
+	while (*res)
+		printf("%s\n");
+	res = ft_get_next_line(fd);
+	free(res)
+	return (0);
 }
