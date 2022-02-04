@@ -6,7 +6,7 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 12:05:34 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/01/28 12:11:52 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/04 15:23:46 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strdup(const char *s1)
 	return (ptr);
 }
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr(char *str, int c)
 {
 	while (*str && *str != (char)c)
 		str++;
@@ -36,19 +36,30 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
+/* modified */
 {
 	char	*new;
-	size_t	len_new;
+	int		i;
+	int		j;
 
-	if (!s1 || !s2)
+	i = 0;
+	j = 0;
+	if (!s1)
 		return (NULL);
-	len_new = (ft_strlen(s1) + ft_strlen(s2) + 1);
-	new = (char *)ft_calloc(sizeof(char), len_new);
-	if (new == NULL)
+	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!new)
 		return (NULL);
-	ft_memcpy(new, s1, ft_strlen(s1));
-	ft_strlcat(new, s2, len_new);
+	while (s1[i])
+		new[i++] = s1[i++];
+	while (s2[j])
+	{
+		new[i + j] = s2[i];
+		i++;
+		j++;
+	}
+	new[i + j] = '\0';
+	free (s1)
 	return (new);
 }
 
