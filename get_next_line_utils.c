@@ -6,26 +6,11 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 12:05:34 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/04 15:23:46 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/04 16:28:34 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*ft_strdup(const char *s1)
-{
-	char	*dst;
-	char	*ptr;
-
-	dst = (char *) malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (dst == NULL)
-		return (NULL);
-	ptr = dst;
-	while (*s1)
-		*dst++ = *s1++;
-	*dst = '\0';
-	return (ptr);
-}
 
 char	*ft_strchr(char *str, int c)
 {
@@ -36,8 +21,7 @@ char	*ft_strchr(char *str, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
-/* modified */
+static char	*ft_strjoin_gnl(char *temp, char *buffer)
 {
 	char	*new;
 	int		i;
@@ -45,21 +29,22 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	if (!s1)
+	if (!temp)
 		return (NULL);
-	new = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	new = (char *)malloc(sizeof(char) * (ft_strlen(temp)
+				+ ft_strlen(buffer) + 1));
 	if (!new)
 		return (NULL);
-	while (s1[i])
-		new[i++] = s1[i++];
-	while (s2[j])
+	while (temp[i])
+		new[i++] = temp[i++];
+	while (buffer[j])
 	{
-		new[i + j] = s2[i];
+		new[i + j] = buffer[j];
 		i++;
 		j++;
 	}
 	new[i + j] = '\0';
-	free (s1)
+	free (temp)
 	return (new);
 }
 
