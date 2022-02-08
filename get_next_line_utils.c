@@ -21,7 +21,7 @@ char	*ft_strchr(char *str, int c)
 	return (NULL);
 }
 
-static char	*ft_strjoin_gnl(char *temp, char *buffer)
+static char	*ft_strjoin_gnl(char *stash, char *buffer)
 {
 	char	*new;
 	int		i;
@@ -29,14 +29,14 @@ static char	*ft_strjoin_gnl(char *temp, char *buffer)
 
 	i = 0;
 	j = 0;
-	if (!temp)
+	if (!stash)
 		return (NULL);
-	new = (char *)malloc(sizeof(char) * (ft_strlen(temp)
+	new = (char *)malloc(sizeof(char) * (ft_strlen(stash)
 				+ ft_strlen(buffer) + 1));
 	if (!new)
 		return (NULL);
-	while (temp[i])
-		new[i++] = temp[i++];
+	while (stash[i])
+		new[i++] = stash[i++];
 	while (buffer[j])
 	{
 		new[i + j] = buffer[j];
@@ -44,7 +44,7 @@ static char	*ft_strjoin_gnl(char *temp, char *buffer)
 		j++;
 	}
 	new[i + j] = '\0';
-	free (temp)
+	free (stash)
 	return (new);
 }
 
