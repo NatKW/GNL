@@ -6,12 +6,17 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:37:54 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/09 16:41:01 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:28:27 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 256
+
+# endif
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
@@ -25,11 +30,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
-
-static char		*ft_get_line(char *line);
-static char		*ft_read(char *stash, int fd);
-static char		*ft_get_next(char *stash, char *line);
-static char		*ft_strjoin_gnl(char *stash, char *buf);
+char	*ft_strjoin_gnl(char *stash, char *buf);
 
 size_t	ft_strlen(const char *str);
 

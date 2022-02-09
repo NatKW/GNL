@@ -6,7 +6,7 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 12:05:34 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/09 17:36:49 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:00:30 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-static char	*ft_strjoin_gnl(char *stash, char *buf)
+char	*ft_strjoin_gnl(char *stash, char *buf)
 {
 	char	*new;
 	int		i;
