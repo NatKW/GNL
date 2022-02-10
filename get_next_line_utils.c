@@ -6,19 +6,34 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 12:05:34 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/09 18:00:30 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:13:29 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *str, int c)
+int	ft_strchr_gnl(char *str, int c)
 {
 	while (*str && *str != (char)c)
 		str++;
 	if (*str == (char)c)
-		return ((char *)str);
-	return (NULL);
+		return (1);
+	return (0);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*dst;
+	char	*ptr;
+
+	dst = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
+	if (dst == NULL)
+		return (NULL);
+	ptr = dst;
+	while (*s1)
+		*dst++ = *s1++;
+	*dst = '\0';
+	return (ptr);
 }
 
 char	*ft_strjoin_gnl(char *stash, char *buf)
@@ -27,17 +42,15 @@ char	*ft_strjoin_gnl(char *stash, char *buf)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	new = malloc(sizeof(char) * (ft_strlen(stash)
-				+ ft_strlen(buf) + 1));
+	if (!stash)
+		stash = ft_strdup("");
+	new = malloc(sizeof(char) * (ft_strlen(stash) + ft_strlen(buf) + 1));
 	if (!new)
 		return (NULL);
-	while (stash[i])
-	{
+	while (stash[i++])
 		new[i] = stash[i];
-		i++;
-	}
 	while (buf[j])
 	{
 		new[i + j] = buf[j];

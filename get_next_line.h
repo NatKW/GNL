@@ -6,7 +6,7 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:37:54 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/09 18:28:27 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:14:09 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@
 # include <stdio.h>
 
 char	*get_next_line(int fd);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s1);
 char	*ft_strjoin_gnl(char *stash, char *buf);
+
+int		ft_strchr_gnl(char *str, int c);
 
 size_t	ft_strlen(const char *str);
 

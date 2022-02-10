@@ -6,25 +6,25 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 18:43:59 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/09 18:54:07 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:32:36 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*ft_read(char *buf, int fd)
+static char	*ft_read(char *stash, int fd)
 {
-	static char	*stash;
+	char		*buf;
 	ssize_t		bytes_read;
 
 	bytes_read = 1;
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	while (!ft_strchr(buf, '\n') && bytes_read)
+	while (!ft_strchr_gnl(stash, '\n') && bytes_read > 0)
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read == -1)
+		if (bytes_read < 0)
 		{
 			free(buf);
 			return (NULL);
@@ -68,20 +68,16 @@ static char	*ft_get_next(char *stash, char *line)
 		free(stash);
 		return (NULL);
 	}
-	str = NULL;
 	i = 0;
-	while (str[i] && str[i] != '\n')
+	while (line[i] && line[i] != '\n')
 		i++;
-	line = malloc(sizeof(char) * ((ft_strlen(stash) - ft_strlen(str)) + 1));
+	str = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
 	if (!line)
 		return (NULL);
 	j = 0;
-	while (str[i + j])
-	{
-		line[j] = stash[j];
-		j++;
-	}
-	line[j] = '\0';
+	while (stash[j++])
+		str[i + j] = stash[j];
+	str[j] = '\0';
 	free(stash);
 	return (line);
 }
@@ -91,6 +87,8 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
+	if (read(fd, NULL, 0) == -1)
+		return (NULL);
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!stash)
