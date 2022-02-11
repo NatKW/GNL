@@ -6,7 +6,7 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 12:05:34 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/10 17:13:29 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/11 11:05:31 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,16 @@ char	*ft_strjoin_gnl(char *stash, char *buf)
 	int		j;
 
 	i = -1;
-	j = 0;
+	j = -1;
 	if (!stash)
 		stash = ft_strdup("");
 	new = malloc(sizeof(char) * (ft_strlen(stash) + ft_strlen(buf) + 1));
 	if (!new)
 		return (NULL);
-	while (stash[i++])
+	while (stash[++i])
 		new[i] = stash[i];
-	while (buf[j])
-	{
+	while (buf[++j])
 		new[i + j] = buf[j];
-		i++;
-		j++;
-	}
 	new[i + j] = '\0';
 	free (stash);
 	return (new);
