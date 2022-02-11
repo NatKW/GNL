@@ -6,7 +6,7 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 18:43:59 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/11 15:01:19 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/11 19:04:03 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*ft_read(char *stash, int fd)
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	while (!ft_strchr_gnl(stash, '\n') && bytes_read > 0)
+	while (bytes_read > 0 && !ft_strchr_gnl(stash, '\n'))
 	{
 		bytes_read = read(fd, buf, BUFFER_SIZE);
 		if (bytes_read < 0)
@@ -31,6 +31,7 @@ static char	*ft_read(char *stash, int fd)
 		}
 		buf[bytes_read] = '\0';
 		stash = ft_strjoin_gnl(stash, buf);
+		printf("stash ft_read:%s\n", stash);
 	}
 	free(buf);
 	return (stash);
@@ -61,6 +62,7 @@ static char	*ft_get_line(char *stash)
 		i++;
 	}
 	line[i] = '\0';
+	printf("line ft_read:%s\n", line);
 	return (line);
 }
 
@@ -78,6 +80,7 @@ static char	*ft_get_next(char *stash, char *line)
 	i = 0;
 	while (line[i] && line[i] != '\n')
 		i++;
+	i++;
 	str = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
 	if (!str)
 		return (NULL);
@@ -85,8 +88,8 @@ static char	*ft_get_next(char *stash, char *line)
 	while (stash[++j + i])
 		str[j] = stash[i + j];
 	str[j] = '\0';
-	printf("***%s\n", str);
 	free(stash);
+	printf("str ft_read:%s\n", str);
 	return (str);
 }
 
@@ -95,8 +98,6 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (read(fd, NULL, 0) == -1)
-		return (NULL);
 	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!stash)
@@ -120,12 +121,13 @@ int	main(void)
 	res = NULL;
 	fd = open("christina_wow.txt", O_RDONLY);
 	res = get_next_line(fd);
-	while (res)
+	printf("%s\n", res);
+	/*while (res)
 	{
 		printf("%s\n", res);
 		free(res);
 		res = get_next_line(fd);
-	}
+	}*/
 	free(res);
 	close(fd);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 12:05:34 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/11 11:05:31 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/11 19:05:03 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 int	ft_strchr_gnl(char *str, int c)
 {
-	while (*str && *str != (char)c)
-		str++;
-	if (*str == (char)c)
-		return (1);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == (char)c)
+			return (1);
+		i++;
+	}	
 	return (0);
 }
 
