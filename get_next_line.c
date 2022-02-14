@@ -6,7 +6,7 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 18:43:59 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/11 19:04:03 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/14 15:14:07 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*ft_read(char *stash, int fd)
 		}
 		buf[bytes_read] = '\0';
 		stash = ft_strjoin_gnl(stash, buf);
-		printf("stash ft_read:%s\n", stash);
+		//printf("stash ft_read:%s\n", stash);
 	}
 	free(buf);
 	return (stash);
@@ -62,7 +62,7 @@ static char	*ft_get_line(char *stash)
 		i++;
 	}
 	line[i] = '\0';
-	printf("line ft_read:%s\n", line);
+	//printf("line ft_get:%s\n", line);
 	return (line);
 }
 
@@ -84,12 +84,12 @@ static char	*ft_get_next(char *stash, char *line)
 	str = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
 	if (!str)
 		return (NULL);
-	j = -1;
-	while (stash[++j + i])
+	j = 0;
+	while (stash[j++ + i])
 		str[j] = stash[i + j];
 	str[j] = '\0';
 	free(stash);
-	printf("str ft_read:%s\n", str);
+	//printf("str get_next:%s\n", str);
 	return (str);
 }
 
@@ -112,7 +112,7 @@ char	*get_next_line(int fd)
 	stash = ft_get_next(stash, line);
 	return (line);
 }
-
+/*
 int	main(void)
 {
 	char	*res;
@@ -120,15 +120,13 @@ int	main(void)
 
 	res = NULL;
 	fd = open("christina_wow.txt", O_RDONLY);
+	if (fd < 0)
+		return (0);
 	res = get_next_line(fd);
-	printf("%s\n", res);
-	/*while (res)
-	{
-		printf("%s\n", res);
-		free(res);
-		res = get_next_line(fd);
-	}*/
+	printf("RESULT %s\n", res);
+cd 
 	free(res);
 	close(fd);
 	return (0);
 }
+*/
