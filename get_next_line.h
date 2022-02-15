@@ -6,12 +6,18 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 11:37:54 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/11 18:34:08 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:19:23 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <limits.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
@@ -23,11 +29,10 @@
 
 # endif
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <stdio.h>
-# include <limits.h>
+# ifndef INT_MAX
+#  define INT_MAX 2147483647
+
+# endif
 
 char	*get_next_line(int fd);
 char	*ft_strdup(const char *s1);

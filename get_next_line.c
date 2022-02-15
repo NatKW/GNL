@@ -6,7 +6,7 @@
 /*   By: nade-la- <nade-la-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 18:43:59 by nade-la-          #+#    #+#             */
-/*   Updated: 2022/02/14 15:14:07 by nade-la-         ###   ########.fr       */
+/*   Updated: 2022/02/15 18:32:59 by nade-la-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static char	*ft_read(char *stash, int fd)
 		}
 		buf[bytes_read] = '\0';
 		stash = ft_strjoin_gnl(stash, buf);
-		//printf("stash ft_read:%s\n", stash);
 	}
 	free(buf);
 	return (stash);
@@ -62,7 +61,6 @@ static char	*ft_get_line(char *stash)
 		i++;
 	}
 	line[i] = '\0';
-	//printf("line ft_get:%s\n", line);
 	return (line);
 }
 
@@ -75,21 +73,22 @@ static char	*ft_get_next(char *stash, char *line)
 	if (stash[0] == '\0')
 	{
 		free(stash);
+		stash = NULL;
 		return (NULL);
 	}
-	i = 0;
-	while (line[i] && line[i] != '\n')
-		i++;
-	i++;
+	i = ft_strlen(line);
 	str = malloc(sizeof(char) * (ft_strlen(stash) - i + 1));
 	if (!str)
 		return (NULL);
 	j = 0;
-	while (stash[j++ + i])
+	while (stash[i + j])
+	{
 		str[j] = stash[i + j];
+		j++;
+	}
 	str[j] = '\0';
 	free(stash);
-	//printf("str get_next:%s\n", str);
+	stash = NULL;
 	return (str);
 }
 
@@ -98,35 +97,26 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
+	line = NULL;
+	if (read(fd, NULL, 0) == -1)
 		return (NULL);
-	if (!stash)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
+		return (NULL);
+	if (stash == 0)
 	{
-		stash = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (!stash)
+		stash = malloc(sizeof(char) * 1);
+		if (stash == 0)
 			return (NULL);
 		stash[0] = '\0';
 	}
 	stash = ft_read(stash, fd);
 	line = ft_get_line(stash);
 	stash = ft_get_next(stash, line);
+	if (stash == NULL)
+	{
+		free(stash);
+		free(line);
+		return (NULL);
+	}
 	return (line);
 }
-/*
-int	main(void)
-{
-	char	*res;
-	int		fd;
-
-	res = NULL;
-	fd = open("christina_wow.txt", O_RDONLY);
-	if (fd < 0)
-		return (0);
-	res = get_next_line(fd);
-	printf("RESULT %s\n", res);
-cd 
-	free(res);
-	close(fd);
-	return (0);
-}
-*/
